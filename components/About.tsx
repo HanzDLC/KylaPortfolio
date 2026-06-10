@@ -1,8 +1,25 @@
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
-import { about } from "@/lib/content";
+import {
+  ArrowRight,
+  FileText,
+  Dna,
+  HeartPulse,
+  Leaf,
+  Microscope,
+  type LucideIcon,
+} from "lucide-react";
+import { about, projects, type Project } from "@/lib/content";
 import Reveal from "./Reveal";
+import Sci from "./Sci";
 import { PetriDish, Coccus, Molecule } from "./Science";
+
+const iconMap: Record<Project["icon"], LucideIcon> = {
+  leaf: Leaf,
+  microscope: Microscope,
+  dna: Dna,
+  flask: HeartPulse,
+  heart: HeartPulse,
+};
 
 export default function About() {
   return (
@@ -75,6 +92,74 @@ export default function About() {
               <PetriDish className="anim-spin-slow h-full w-full text-slate" />
             </div>
           </Reveal>
+        </div>
+
+        {/* Selected projects preview */}
+        <div className="mt-16 sm:mt-20">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate">
+                  Selected Projects
+                </p>
+                <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-navy sm:text-3xl">
+                  A snapshot of my research.
+                </h3>
+              </div>
+              <Link
+                href="/projects"
+                className="group inline-flex items-center gap-1.5 text-sm font-semibold text-slate transition-colors hover:text-navy"
+              >
+                View all projects
+                <ArrowRight
+                  size={16}
+                  aria-hidden="true"
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {projects.map((p, i) => {
+              const Icon = iconMap[p.icon];
+              return (
+                <Reveal key={p.title} delay={i * 70}>
+                  <Link
+                    href="/projects"
+                    className="group flex h-full gap-4 rounded-2xl border border-slate/12 bg-cream p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-slate/25 hover:shadow-soft"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky/60 text-slate transition-colors group-hover:bg-sky">
+                      <Icon size={20} aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <h4 className="font-display text-base font-semibold leading-snug text-navy">
+                        <Sci text={p.shortTitle} />
+                      </h4>
+                      <p className="mt-1 text-sm leading-relaxed text-ink/70">
+                        <Sci text={p.short} />
+                      </p>
+                      <div className="mt-2.5 flex flex-wrap gap-1.5">
+                        {p.tags.slice(0, 2).map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-sand-soft px-2.5 py-0.5 text-xs font-medium text-navy"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                        {p.badge && (
+                          <span className="rounded-full bg-navy px-2.5 py-0.5 text-xs font-semibold text-cream">
+                            {p.badge}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

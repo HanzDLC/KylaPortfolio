@@ -50,6 +50,9 @@ export const about = {
 
 export type Project = {
   title: string;
+  // Condensed title + one-line summary used in the home "Selected projects" preview.
+  shortTitle: string;
+  short: string;
   blurb: string;
   tags: string[];
   filters: string[]; // used by the category filter
@@ -67,6 +70,9 @@ export const projects: Project[] = [
   {
     title:
       "Biodegradation of Fats, Oils, and Grease (FOG) by Staphylococcus borealis Immobilized on Milkfish Scales and Sugarcane Bagasse",
+    shortTitle: "Biodegradation of FOG by Staphylococcus borealis",
+    short:
+      "Award-winning undergraduate thesis using bacteria immobilized on fishery and farm waste to break down fats, oils, and grease.",
     blurb:
       "Undergraduate thesis investigating an eco-friendly route to grease bioremediation — immobilizing Staphylococcus borealis on fishery and agricultural waste to create a low-cost, sustainable FOG-degradation platform.",
     tags: ["Bioremediation", "Microbiology", "Sustainability"],
@@ -79,6 +85,9 @@ export const projects: Project[] = [
   {
     title:
       "Comprehensive Analysis of Escherichia coli from Chest Freezers in La Paz Market: Isolation, Phenotypic Characterization, and Molecular Techniques",
+    shortTitle: "Escherichia coli in Public-Market Chest Freezers",
+    short:
+      "Food-safety study isolating and characterizing E. coli from market freezers to assess public-health risk.",
     blurb:
       "A food-safety study isolating and characterizing E. coli contamination from public-market chest freezers through phenotypic profiling and molecular techniques to assess public-health risk.",
     tags: ["Microbiology", "Food Safety", "Molecular Techniques"],
@@ -90,6 +99,9 @@ export const projects: Project[] = [
   {
     title:
       "Comparative Analysis of Efficacy of the Different Attractant Compositions and Investigating Phenotypic Consequences in Controlled Cross of Drosophila melanogaster (Fruit Flies) Population",
+    shortTitle: "Drosophila melanogaster Attractant & Phenotype Study",
+    short:
+      "Compared attractant compositions and phenotypic outcomes across controlled fruit-fly crosses.",
     blurb:
       "Compared the efficacy of different attractant compositions and tracked phenotypic outcomes across controlled crosses of fruit-fly populations to study inheritance and behavior.",
     tags: ["Genetics", "Experimental Design"],
@@ -102,6 +114,9 @@ export const projects: Project[] = [
   {
     title:
       "Characterization of the Genotype-Phenotype Correlation, Inheritance Pattern, Therapeutic Response, and Management Strategies in Beta-Thalassemia Major: A Case Study of a Pediatric Patient from Oton, Iloilo, Philippines",
+    shortTitle: "Beta-Thalassemia Major — Pediatric Case Study",
+    short:
+      "Mapped genotype–phenotype correlation, inheritance, and management in a pediatric Beta-Thalassemia case.",
     blurb:
       "A pediatric case study from Oton, Iloilo mapping genotype–phenotype correlation, inheritance pattern, therapeutic response, and management strategies in Beta-Thalassemia Major.",
     tags: ["Molecular Biology", "Clinical Case Study", "Genetics"],
