@@ -1,0 +1,359 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens — palette from the brief                            */
+/*  cream #F5EFE7 · slate #3E5879 · sky #D9EAFD · sand #D8C4B6        */
+/*  plus a deep navy for ink + dark sections                          */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-cream: #f5efe7;
+  --color-cream-deep: #ece3d6;
+  --color-paper: #fbf8f3;
+  --color-sand: #d8c4b6;
+  --color-sand-soft: #e7d9cf;
+  --color-slate: #3e5879;
+  --color-slate-deep: #324965;
+  --color-sky: #d9eafd;
+  --color-sky-soft: #eaf3fe;
+  --color-navy: #1b2a4a;
+  --color-navy-deep: #14213d;
+  --color-ink: #17243c;
+  --color-muted: #5b6b80;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, "Times New Roman",
+    serif;
+
+  --shadow-soft: 0 1px 2px rgba(23, 36, 60, 0.04),
+    0 8px 24px rgba(23, 36, 60, 0.06);
+  --shadow-card: 0 1px 2px rgba(23, 36, 60, 0.05),
+    0 18px 40px -18px rgba(23, 36, 60, 0.22);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  /* offset for the sticky navbar when jumping to #anchors */
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-slate);
+  color: #fff;
+}
+
+/* Thin, on-brand focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-slate);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scroll-reveal animation (see components/Reveal.tsx)               */
+/* ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Decorative dotted/grid background helper */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    rgba(62, 88, 121, 0.14) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Decorative motion for the microbiology art (components/Science)   */
+/* ------------------------------------------------------------------ */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes floaty-soft {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-9px) translateX(6px);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.anim-floaty {
+  animation: floaty 6s ease-in-out infinite;
+}
+.anim-floaty-slow {
+  animation: floaty 9s ease-in-out infinite;
+}
+.anim-floaty-soft {
+  animation: floaty-soft 7.5s ease-in-out infinite;
+}
+.anim-sway {
+  animation: sway 8s ease-in-out infinite;
+  transform-origin: center top;
+}
+.anim-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+.anim-pulse {
+  animation: pulse-soft 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-floaty,
+  .anim-floaty-slow,
+  .anim-floaty-soft,
+  .anim-sway,
+  .anim-spin-slow,
+  .anim-pulse {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Oxford-style CV — a printed "paper" document                      */
+/* ------------------------------------------------------------------ */
+.cv-doc {
+  --cv-accent: #3e5879; /* slate */
+  --cv-ink: #1a2438;
+  --cv-sub: #46536d;
+  --cv-rule: rgba(62, 88, 121, 0.35);
+}
+
+.cv-paper {
+  width: 100%;
+  max-width: 8in;
+  margin: 0 auto;
+  background: #ffffff;
+  color: var(--cv-ink);
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 11.5pt;
+  line-height: 1.5;
+  padding: 0.7in 0.78in;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(13, 22, 41, 0.18),
+    0 28px 64px -16px rgba(13, 22, 41, 0.5);
+}
+.cv-paper + .cv-paper {
+  margin-top: 2.5rem;
+}
+
+/* Centered header */
+.cv-head {
+  text-align: center;
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 2.5px solid var(--cv-accent);
+}
+.cv-name {
+  margin: 0;
+  font-size: 23pt;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--cv-ink);
+}
+.cv-role {
+  margin: 5px 0 9px;
+  font-size: 10.5pt;
+  font-style: italic;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cv-sub);
+}
+.cv-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px 14px;
+  font-size: 10.5pt;
+  color: var(--cv-sub);
+}
+.cv-contacts a {
+  color: var(--cv-accent);
+  text-decoration: none;
+}
+.cv-contacts a:hover {
+  text-decoration: underline;
+}
+.cv-contacts .sep {
+  color: var(--cv-rule);
+}
+
+/* Sections */
+.cv-sec {
+  margin-top: 18px;
+}
+.cv-sec:first-of-type {
+  margin-top: 0;
+}
+.cv-sec-title {
+  margin: 0 0 9px;
+  padding-bottom: 4px;
+  font-size: 12.5pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cv-accent);
+  border-bottom: 1px solid var(--cv-rule);
+}
+.cv-summary {
+  margin: 0;
+  text-align: justify;
+}
+
+/* Entries */
+.cv-entry {
+  margin-bottom: 13px;
+}
+.cv-entry:last-child {
+  margin-bottom: 0;
+}
+.cv-entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+.cv-entry-title {
+  margin: 0;
+  font-size: 11.5pt;
+  font-weight: 700;
+  color: var(--cv-ink);
+}
+.cv-entry-sub {
+  margin: 1px 0 0;
+  font-size: 10.5pt;
+  font-style: italic;
+  color: var(--cv-sub);
+}
+.cv-entry-meta {
+  flex-shrink: 0;
+  text-align: right;
+}
+.cv-entry-date {
+  display: block;
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--cv-ink);
+}
+.cv-entry-org {
+  display: block;
+  font-size: 9.5pt;
+  color: var(--cv-sub);
+}
+.cv-entry p {
+  margin: 5px 0 0;
+  font-size: 10.5pt;
+  text-align: justify;
+}
+.cv-bullets {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  list-style: disc;
+}
+.cv-bullets li {
+  margin: 2.5px 0;
+  font-size: 10.5pt;
+}
+.cv-skill-line {
+  margin: 0 0 6px;
+  font-size: 10.5pt;
+}
+.cv-skill-line:last-child {
+  margin-bottom: 0;
+}
+.cv-skill-line strong {
+  color: var(--cv-accent);
+}
+
+@media (max-width: 640px) {
+  .cv-paper {
+    padding: 26px 22px;
+    font-size: 11pt;
+    border-radius: 4px;
+  }
+  .cv-name {
+    font-size: 19pt;
+  }
+  .cv-entry-head {
+    flex-direction: column;
+    gap: 1px;
+  }
+  .cv-entry-meta {
+    text-align: left;
+  }
+}
+
+/* Print: make the CV section clean when exporting to PDF */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .cv-paper {
+    box-shadow: none;
+    max-width: none;
+    border-radius: 0;
+  }
+}
