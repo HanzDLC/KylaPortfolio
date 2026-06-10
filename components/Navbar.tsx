@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Mail } from "lucide-react";
+import { Menu, X, Facebook } from "lucide-react";
 import { site } from "@/lib/content";
 
 const links = [
@@ -74,10 +74,21 @@ export default function Navbar() {
             );
           })}
           <a
-            href={`mailto:${site.email}`}
-            className="ml-2 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-cream shadow-soft transition-colors hover:bg-slate"
+            href={site.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Kyla on Facebook"
+            className="ml-1 inline-flex h-10 w-10 items-center justify-center rounded-full text-slate transition-colors hover:bg-sky/60 hover:text-navy"
           >
-            <Mail size={16} aria-hidden="true" />
+            <Facebook size={18} aria-hidden="true" />
+          </a>
+          <a
+            href={site.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-1 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-cream shadow-soft transition-colors hover:bg-slate"
+          >
+            <Facebook size={16} aria-hidden="true" />
             Get in touch
           </a>
         </div>
@@ -109,11 +120,23 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href={`mailto:${site.email}`}
+            href={site.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 rounded-xl px-4 py-3 text-base font-medium text-ink/80 transition-colors hover:bg-sky/60 hover:text-navy"
+          >
+            <Facebook size={18} aria-hidden="true" />
+            Facebook
+          </a>
+          <a
+            href={site.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-navy px-4 py-3 text-base font-semibold text-cream"
           >
-            <Mail size={18} aria-hidden="true" />
+            <Facebook size={18} aria-hidden="true" />
             Get in touch
           </a>
         </div>
